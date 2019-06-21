@@ -1,0 +1,528 @@
+﻿
+@{
+    ViewBag.Title = "SupplierC";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/css/supplier.css">
+
+<div class="wrapper">
+    <div class="main-panel">
+        <div class="container-fluid">
+            <!--廠商A-->
+            <br />
+            <br />
+
+
+            <div class="row">
+                <div class="col-md-12 btnSpot">
+                    <div class="col-md-12 btnSpot">
+
+                        <button type="button" class="gradient-button" id="pageA" onclick="javascript:location.href='SupplierA'" style="margin-left:10px;">
+                            Telstra MFC Co., Pte.
+                        </button>
+
+                        <button type="button" class="gradient-button" id="pageB" onclick="javascript:location.href='SupplierB'">
+                            Crackenback MFC Co., Ltd.
+                        </button>
+
+                        <button type="button" class="gradient-button" id="pageC" onclick="javascript:location.href='SupplierC'">
+                            SanGeorge MFC Co., Pte.
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <br />
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <p style="text-align:center; color:lightgray ; font-family:fantasy; font-size:28px;">
+                        SanGeorge MFC Co., Pte.
+                    </p>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p style="text-align:center;font-weight:bold;">批次瑕疵數量柱狀圖</p>
+                            <div id="C1" style="width:450px;height:300px;margin-top:10px;"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="text-align:center;font-weight:bold;">批次良率折線圖</p>
+                            <div id="C6" style="width:450px;height:300px;margin-top:10px;"></div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-5">
+                        <div class="col-md-5">
+                            <div id="C2" style="width:400px;height:300px;margin-top:10px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+
+                        <div style="margin-top:70px;">
+                            <div>
+                                <button type="button" class="css_button green" id="bt1">
+                                    2019-05-01(一) ➤
+                                </button>
+                            </div>
+                            <div>
+                                <button type="button" class="css_button green" id="bt2">
+                                    2019-05-02(二) ➤
+                                </button>
+                            </div>
+                            <div>
+                                <button type="button" class="css_button green" id="bt3">
+                                    2019-05-03(三) ➤
+                                </button>
+                            </div>
+                            <div>
+                                <button type="button" class="css_button green" id="bt4">
+                                    All batches ➤
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div id="C3" style="width:400px;height:300px;margin-top:10px;"></div>
+                        <div id="C4" style="width:400px;height:300px;margin-top:10px;"></div>
+                        <div id="C5" style="width:400px;height:300px;margin-top:10px;"></div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <script>
+                var apiurl = "http://localhost:52249/api/Test"
+
+                var myChart1 = echarts.init(document.getElementById('C1'));
+                var myChart2 = echarts.init(document.getElementById('C2'));
+                var myChart3 = echarts.init(document.getElementById('C3'));
+                var myChart4 = echarts.init(document.getElementById('C4'));
+                var myChart5 = echarts.init(document.getElementById('C5'));
+                var myChart6 = echarts.init(document.getElementById('C6'));
+                //C1
+                $.ajax({
+                    url: apiurl,
+                    type: "GET",
+                    success: function (data) {
+                        var batch7_1 = 0; var batch7_2 = 0; var batch7_3 = 0; var batch7_4 = 0; var batch7_5 = 0;
+                        var batch8_1 = 0; var batch8_2 = 0; var batch8_3 = 0; var batch8_4 = 0; var batch8_5 = 0;
+                        var batch9_1 = 0; var batch9_2 = 0; var batch9_3 = 0; var batch9_4 = 0; var batch9_5 = 0;
+                        //瑕疵數量分批計算
+                        //batch7
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].label == 1 && data[i].batchNo == 7) {
+                                batch7_1 += 1
+                            }
+                            if (data[i].label == 2 && data[i].batchNo == 7) {
+                                batch7_2 += 1
+                            }
+                            if (data[i].label == 3 && data[i].batchNo == 7) {
+                                batch7_3 += 1
+                            }
+                            if (data[i].label == 4 && data[i].batchNo == 7) {
+                                batch7_4 += 1
+                            }
+                            if (data[i].label == 5 && data[i].batchNo == 7) {
+                                batch7_5 += 1
+                            }
+                        };
+                        //batch8
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].label == 1 && data[i].batchNo == 8) {
+                                batch8_1 += 1
+                            }
+                            if (data[i].label == 2 && data[i].batchNo == 8) {
+                                batch8_2 += 1
+                            }
+                            if (data[i].label == 3 && data[i].batchNo == 8) {
+                                batch8_3 += 1
+                            }
+                            if (data[i].label == 4 && data[i].batchNo == 8) {
+                                batch8_4 += 1
+                            }
+                            if (data[i].label == 5 && data[i].batchNo == 8) {
+                                batch8_5 += 1
+                            }
+                        };
+                        //batch9
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].label == 1 && data[i].batchNo == 9) {
+                                batch9_1 += 1
+                            }
+                            if (data[i].label == 2 && data[i].batchNo == 9) {
+                                batch9_2 += 1
+                            }
+                            if (data[i].label == 3 && data[i].batchNo == 9) {
+                                batch9_3 += 1
+                            }
+                            if (data[i].label == 4 && data[i].batchNo == 9) {
+                                batch9_4 += 1
+                            }
+                            if (data[i].label == 5 && data[i].batchNo == 9) {
+                                batch9_5 += 1
+                            }
+                        };
+
+                        var option = {
+                            title: {
+                                //text: 'C廠商',
+                                x: 'left'
+                            },
+                            tooltip: {},
+                            legend: {
+                                data: ['Void', 'Horizontal', 'Vertical', 'Edge', 'Particle']
+                            },
+                            xAxis: {
+                                data: ["7", "8", "9"],
+                                name: '批次'
+                            },
+                            yAxis: {
+                                type: 'value',
+                                name: '數量',
+                                min: 0,
+                                max: 15,
+                                interval: 5,
+                            },
+                            series: [{
+                                name: 'Void',
+                                type: 'bar',
+                                color: ['#cff09e'],
+                                data: [batch7_1, batch8_1, batch9_1]
+                            }, {
+                                name: 'Horizontal',
+                                type: 'bar',
+                                color: ['#a8dba8'],
+                                data: [batch7_2, batch8_2, batch9_2]
+                            }, {
+                                name: 'Vertical',
+                                type: 'bar',
+                                color: ['#79bd9a'],
+                                data: [batch7_3, batch8_3, batch9_3]
+                            }, {
+                                name: 'Edge',
+                                type: 'bar',
+                                color: ['#3d8686'],
+                                data: [batch7_4, batch8_4, batch9_4]
+                            }, {
+                                name: 'Particle',
+                                type: 'bar',
+                                color: ['#c8c8a9'],
+                                data: [batch7_5, batch8_5, batch9_5]
+                            }]
+                        };
+                        myChart1.setOption(option);
+                    }
+                });
+                //C2
+                $.ajax({
+                    url: apiurl,
+                    type: "GET",
+                    success: function (data) {
+                        var normal = 0;
+                        var bad = 0;
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].label == 0 && data[i].batchNo == 7 | data[i].batchNo == 8 | data[i].batchNo == 9) {
+                                normal++
+                            }
+                            if (data[i].label != 0 && data[i].batchNo == 7 | data[i].batchNo == 8 | data[i].batchNo == 9) {
+                                bad++
+                            }
+                        }
+                        option = {
+                            title: {
+                                text: '總數量/良率',
+                                //subtext: '下標籤',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left',
+                                data: ['無瑕疵總數', '瑕疵總數']
+                            },
+                            series: [
+                                {
+                                    //name: '大標籤',
+                                    type: 'pie',
+                                    radius: '55%',
+                                    center: ['50%', '60%'],
+                                    color: ['#a3c9c7', '#ff7473'],
+                                    data: [
+                                        { value: normal, name: '無瑕疵總數' },
+                                        { value: bad, name: '瑕疵總數' }
+                                    ],
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        myChart2.setOption(option);
+                    }
+                })
+                //C3 C4 C5
+                $.ajax({
+                    url: apiurl,
+                    type: "GET",
+                    success: function (data) {
+                        var normal1 = 0; var normal2 = 0; var normal3 = 0;
+                        var bad1 = 0; var bad2 = 0; var bad3 = 0;
+                        //C3
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].label == 0 && data[i].batchNo == 7) {
+                                normal1++
+                            }
+                            if (data[i].label != 0 && data[i].batchNo == 7) {
+                                bad1++
+                            }
+                        }
+                        //C4
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].label == 0 && data[i].batchNo == 8) {
+                                normal2++
+                            }
+                            if (data[i].label != 0 && data[i].batchNo == 8) {
+                                bad2++
+                            }
+                        }
+                        //C5
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].label == 0 && data[i].batchNo == 9) {
+                                normal3++
+                            }
+                            if (data[i].label != 0 && data[i].batchNo == 9) {
+                                bad3++
+                            }
+                        }
+                        option1 = {
+                            title: {
+                                text: '2019-05-01(一)',
+                                //subtext: '下標籤',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left',
+                                data: ['無瑕疵總數', '瑕疵總數']
+                            },
+                            series: [
+                                {
+                                    //name: '大標籤',
+                                    type: 'pie',
+                                    radius: '55%',
+                                    center: ['50%', '60%'],
+                                    color: ['#a3c9c7', '#ff7473'],
+                                    data: [
+                                        { value: normal1, name: '無瑕疵總數' },
+                                        { value: bad1, name: '瑕疵總數' }
+                                    ],
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        option2 = {
+                            title: {
+                                text: '2019-05-02(二)',
+                                //subtext: '下標籤',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left',
+                                data: ['無瑕疵總數', '瑕疵總數']
+                            },
+                            series: [
+                                {
+                                    //name: '大標籤',
+                                    type: 'pie',
+                                    radius: '55%',
+                                    center: ['50%', '60%'],
+                                    color: ['#a3c9c7', '#ff7473'],
+                                    data: [
+                                        { value: normal2, name: '無瑕疵總數' },
+                                        { value: bad2, name: '瑕疵總數' }
+                                    ],
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        option3 = {
+                            title: {
+                                text: '2019-05-03(三)',
+                                //subtext: '下標籤',
+                                x: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left',
+                                data: ['無瑕疵總數', '瑕疵總數']
+                            },
+                            series: [
+                                {
+                                    //name: '大標籤',
+                                    type: 'pie',
+                                    radius: '55%',
+                                    center: ['50%', '60%'],
+                                    color: ['#a3c9c7', '#ff7473'],
+                                    data: [
+                                        { value: normal3, name: '無瑕疵總數' },
+                                        { value: bad3, name: '瑕疵總數' }
+                                    ],
+                                    itemStyle: {
+                                        emphasis: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        option4 = {
+                            title: {
+                                //text: 'QQQQQQQQ'
+                                //subtext: '下標籤'
+                            },
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            legend: {
+                                data: ['良率']
+                            },
+                            //toolbox: {
+                            //    show: true,
+                            //    feature: {
+                            //        dataZoom: {
+                            //            yAxisIndex: 'none'
+                            //        },
+                            //        dataView: { readOnly: false },
+                            //        magicType: { type: ['line', 'bar'] },
+                            //        restore: {},
+                            //        saveAsImage: {}
+                            //    }
+                            //},
+                            xAxis: {
+                                type: 'category',
+                                name: '批次',
+                                boundaryGap: false,
+                                data: ['7', '8', '9']
+                            },
+                            yAxis: {
+                                type: 'value',
+                                name: '比例',
+                                min: 84,
+                                max: 100,
+                                interval: 4,
+                                axisLabel: {
+                                    formatter: '{value}'
+                                }
+                            },
+                            series: [
+                                {
+                                    name: '良率',
+                                    type: 'line',
+                                    data: [
+                                        ((normal1 / (normal1 + bad1)) * 100).toFixed(2),
+                                        ((normal2 / (normal2 + bad2)) * 100).toFixed(2),
+                                        ((normal3 / (normal3 + bad3)) * 100).toFixed(2),
+                                    ],
+                                    itemStyle:
+                                    {
+                                        normal: {
+                                            label:
+                                            {
+                                                show: true,
+                                                //格式化
+                                                formatter: '{c}%'
+                                            }
+                                        }
+                                    },
+                                    //markPoint: {
+                                    //    data: [
+                                    //        { type: 'max', name: '最大值' },
+                                    //        { type: 'min', name: '最小值' }
+                                    //    ]
+                                    //},
+                                    markLine: {
+                                        data: [
+                                            { type: 'average', name: '平均值' }
+                                        ]
+                                    }
+                                }
+                            ]
+                        };
+                        myChart3.setOption(option1);
+                        myChart4.setOption(option2);
+                        myChart5.setOption(option3);
+                        myChart6.setOption(option4);
+                    }
+                })
+
+                //隱藏個別圖表
+                $("#C3").show();
+                $("#C4").hide();
+                $("#C5").hide();
+                $(document).ready(function () {
+                    $("#bt1").click(function (event) {
+                        $("#C3").show();
+                        $("#C4").hide();
+                        $("#C5").hide();
+                    });
+                    $("#bt2").click(function (event) {
+                        $("#C3").hide();
+                        $("#C4").show();
+                        $("#C5").hide();
+                    });
+                    $("#bt3").click(function (event) {
+                        $("#C3").hide();
+                        $("#C4").hide();
+                        $("#C5").show();
+                    });
+                    $("#bt4").click(function (event) {
+                        $("#C3").show();
+                        $("#C4").show();
+                        $("#C5").show();
+                    });
+                })
+            </script>
+        </div>
+    </div>
+</div>
+
+

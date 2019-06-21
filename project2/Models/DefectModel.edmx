@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="defectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="db_user">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="JobNumber" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserDepartment" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserRank" Type="int" Nullable="false" />
+          <Property Name="UserApproved" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="defectDef">
+          <Key>
+            <PropertyRef Name="dftId" />
+          </Key>
+          <Property Name="dftId" Type="int" Nullable="false" />
+          <Property Name="label" Type="int" Nullable="false" />
+          <Property Name="dftName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="supId" />
+          </Key>
+          <Property Name="supId" Type="int" Nullable="false" />
+          <Property Name="supNo" Type="int" Nullable="false" />
+          <Property Name="supName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="testId" />
+          </Key>
+          <Property Name="testId" Type="int" Nullable="false" />
+          <Property Name="batchNo" Type="int" Nullable="false" />
+          <Property Name="testDate" Type="date" Nullable="false" />
+          <Property Name="imgName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="label" Type="int" Nullable="false" />
+          <Property Name="accuracy" Type="float" />
+          <Property Name="supId" Type="int" Nullable="false" />
+          <Property Name="mcNo" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="train">
+          <Key>
+            <PropertyRef Name="trainId" />
+          </Key>
+          <Property Name="trainId" Type="int" Nullable="false" />
+          <Property Name="imgName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="label" Type="int" Nullable="false" />
+          <Property Name="accuracy" Type="float" />
+          <Property Name="trainDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="defectModelStoreContainer">
+          <EntitySet Name="db_user" EntityType="Self.db_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="defectDef" EntityType="Self.defectDef" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Test" EntityType="Self.Test" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="train" EntityType="Self.train" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="defectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="db_user">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="JobNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserRank" Type="Int32" Nullable="false" />
+          <Property Name="UserApproved" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="defectDef">
+          <Key>
+            <PropertyRef Name="dftId" />
+          </Key>
+          <Property Name="dftId" Type="Int32" Nullable="false" />
+          <Property Name="label" Type="Int32" Nullable="false" />
+          <Property Name="dftName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="supId" />
+          </Key>
+          <Property Name="supId" Type="Int32" Nullable="false" />
+          <Property Name="supNo" Type="Int32" Nullable="false" />
+          <Property Name="supName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="testId" />
+          </Key>
+          <Property Name="testId" Type="Int32" Nullable="false" />
+          <Property Name="batchNo" Type="Int32" Nullable="false" />
+          <Property Name="testDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="imgName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="label" Type="Int32" Nullable="false" />
+          <Property Name="accuracy" Type="Double" />
+          <Property Name="supId" Type="Int32" Nullable="false" />
+          <Property Name="mcNo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="train">
+          <Key>
+            <PropertyRef Name="trainId" />
+          </Key>
+          <Property Name="trainId" Type="Int32" Nullable="false" />
+          <Property Name="imgName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="label" Type="Int32" Nullable="false" />
+          <Property Name="accuracy" Type="Double" />
+          <Property Name="trainDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityContainer Name="defectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="db_user" EntityType="Self.db_user" />
+          <EntitySet Name="defectDefs" EntityType="Self.defectDef" />
+          <EntitySet Name="suppliers" EntityType="Self.supplier" />
+          <EntitySet Name="Tests" EntityType="Self.Test" />
+          <EntitySet Name="trains" EntityType="Self.train" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="defectModelStoreContainer" CdmEntityContainer="defectEntities">
+          <EntitySetMapping Name="db_user">
+            <EntityTypeMapping TypeName="defectModel.db_user">
+              <MappingFragment StoreEntitySet="db_user">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="JobNumber" ColumnName="JobNumber" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserDepartment" ColumnName="UserDepartment" />
+                <ScalarProperty Name="UserRank" ColumnName="UserRank" />
+                <ScalarProperty Name="UserApproved" ColumnName="UserApproved" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="defectDefs">
+            <EntityTypeMapping TypeName="defectModel.defectDef">
+              <MappingFragment StoreEntitySet="defectDef">
+                <ScalarProperty Name="dftId" ColumnName="dftId" />
+                <ScalarProperty Name="label" ColumnName="label" />
+                <ScalarProperty Name="dftName" ColumnName="dftName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="defectModel.supplier">
+              <MappingFragment StoreEntitySet="supplier">
+                <ScalarProperty Name="supId" ColumnName="supId" />
+                <ScalarProperty Name="supNo" ColumnName="supNo" />
+                <ScalarProperty Name="supName" ColumnName="supName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="defectModel.Test">
+              <MappingFragment StoreEntitySet="Test">
+                <ScalarProperty Name="testId" ColumnName="testId" />
+                <ScalarProperty Name="batchNo" ColumnName="batchNo" />
+                <ScalarProperty Name="testDate" ColumnName="testDate" />
+                <ScalarProperty Name="imgName" ColumnName="imgName" />
+                <ScalarProperty Name="label" ColumnName="label" />
+                <ScalarProperty Name="accuracy" ColumnName="accuracy" />
+                <ScalarProperty Name="supId" ColumnName="supId" />
+                <ScalarProperty Name="mcNo" ColumnName="mcNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="trains">
+            <EntityTypeMapping TypeName="defectModel.train">
+              <MappingFragment StoreEntitySet="train">
+                <ScalarProperty Name="trainId" ColumnName="trainId" />
+                <ScalarProperty Name="imgName" ColumnName="imgName" />
+                <ScalarProperty Name="label" ColumnName="label" />
+                <ScalarProperty Name="accuracy" ColumnName="accuracy" />
+                <ScalarProperty Name="trainDate" ColumnName="trainDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

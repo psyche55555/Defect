@@ -1,0 +1,499 @@
+﻿
+@{
+    ViewBag.Title = "TestUpload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+  
+  
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <link rel="stylesheet" href="~/assets/css/style.css">
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+   
+
+
+    <div class="wrapper">
+        <div class="main-panel">
+            <div class="container-fluid">
+                <form  class="file-uploader" action="" enctype="multipart/form-data">
+
+                    <div class="file-uploader__message-area">
+                        <p>Select a file to upload</p>
+                    </div>
+                    <div class="file-chooser">
+                        <input class="file-chooser__input" type="file">
+                    </div>
+                    <input class="file-uploader__submit-button" type="button" value="Upload" onclick="Upload()">
+
+
+                </form>
+
+                <div class="col-md-5" style="margin-left:230px; margin-top:40px;">
+                    <div id="A2" style="width:700px;height:300px;margin-top:10px;">
+                        <P id="test"></P>
+                    </div>
+                </div>
+
+                <script>
+
+                    function Upload() {
+                        var myChart2 = echarts.init(document.getElementById('A2'));
+                        var apiurl = "http://localhost:52249/api/Test";
+                        //train
+                    $.ajax({
+                        url: apiurl,
+                        type: "GET",
+                        success: function (data) {
+                            var sum0 = 0; var sum1 = 0; var sum2 = 0; var sum3 = 0; var sum4 = 0; var sum5 = 0;
+                            for (var i = 0; i < data.length; i++) {
+                                switch (data[i].label) {
+                                    case 0:
+                                        sum0 += 1;
+                                        break
+                                    case 1:
+                                        sum1 += 1;
+                                        break
+                                    case 2:
+                                        sum2 += 1;
+                                        break
+                                    case 3:
+                                        sum3 += 1;
+                                        break
+                                    case 4:
+                                        sum4 += 1;
+                                        break
+                                    case 5:
+                                        sum5 += 1;
+                                        break
+                                }
+                            }
+                            var total = sum0 + sum1 + sum2 + sum3 + sum4 + sum5
+                            var colors = ["#9DC8C8", "#9baec8", "#34314c", "#ffc952", "#47b8e0", "#ff7473"]
+
+                            //chart1
+                            option = {
+                                title: {
+                                    text: '測試結果',
+
+                                },
+                                tooltip: {
+                                    trigger: 'axis',
+                                    axisPointer: {
+                                        type: 'cross',
+                                        crossStyle: {
+                                            color: '#fff'
+
+                                        }
+                                    },
+                                },
+                                legend: {
+                                    data: ['Dataset', 'Percentage']
+                                },
+                                //toolbox: {
+                                //    feature: {
+                                //        dataView: { show: true, readOnly: false, title: '數據視圖' },
+                                //        magicType: {
+                                //            show: true, title: { line: "折線圖", bar: "柱狀圖" }, type: ['line', 'bar']
+                                //        },
+                                //        restore: { show: true, title: '還原' },
+                                //        saveAsImage: { show: true, title: '存檔' }
+                                //    }
+                                //},
+                                calculable: true,
+                                xAxis: [{
+                                    type: 'category',
+                                    data: ['Normal', 'Particle', 'Void', 'Verticle', 'Edge', 'Horizontal'],
+                                    splitLine: false,
+                                    //boundaryGap: false,
+                                    axisPointer: {
+                                        type: 'shadow'
+                                    }
+                                }, {
+                                    type: 'category',
+                                    show: false,
+                                    boundaryGap: false,
+                                    data: ['0', 'Normal', 'Particle', 'Void', 'Verticle', 'Edge', "Horizontal"],
+                                    splitLine: false
+                                }],
+                                yAxis: [{
+                                    type: 'value',
+                                    name: '數量',
+                                    min: 0,
+                                    max: 100,
+                                    interval: 10,
+                                    boundaryGap: [0, 0.1],
+                                    splitLine: false,
+                                    axisLabel: {
+                                        formatter: '{value}'
+                                    }
+                                },
+                                {
+                                    type: 'value',
+                                    name: '累進比率(%)',
+                                    min: 0,
+                                    max: 100,
+                                    interval: 20,
+                                    axisLabel: {
+                                        formatter: '{value}'
+                                    },
+                                    splitLine: false
+                                }
+                                ],
+                                series: [
+                                    {
+                                        name: 'Dataset',
+                                        type: 'bar',
+                                        barCategoryGap: '20%',
+                                        itemStyle: {
+                                            normal: {
+                                                color: function (obj) {
+                                                    if (obj.dataIndex >= 0) {
+                                                        return colors[obj.dataIndex];
+                                                    }
+                                                },
+                                                //barBorderColor: 'red',
+                                                //barBorderWidth: 0.4,
+                                                barBorderRadius: 3,
+                                                label: {
+                                                    show: true,
+                                                    position: 'insideTop'
+                                                }
+                                            }
+                                        },
+                                        data: [10,86,95,24,14,17]
+                                    },
+                                    //{
+                                    //    name: 'Percentage',
+                                    //    type: 'line',
+                                    //    xAxisIndex: 1,
+                                    //    yAxisIndex: 1,
+                                    //    itemStyle: {
+                                    //        normal: {
+                                    //            label:
+                                    //            {
+                                    //                show: true,
+                                    //                //格式化
+                                    //                formatter: '{c}%'
+                                    //            },
+                                    //            lineStyle: {
+                                    //                color: '#e85a71'
+                                    //            },
+                                    //            color: '#e85a71'
+                                    //        }
+                                    //    },
+                                    //    data: [30,40,50,60,70,80,90
+                                    //    ]
+                                    //    //data: [0,
+                                    //    //    ((sum0 / total) * 100).toFixed(2),
+                                    //    //    (((sum0 + sum5) / total) * 100).toFixed(2),
+                                    //    //    (((sum0 + sum5 + sum1) / total) * 100).toFixed(2),
+                                    //    //    (((sum0 + sum5 + sum1 + sum3) / total) * 100).toFixed(2),
+                                    //    //    (((sum0 + sum5 + sum1 + sum3 + sum4) / total) * 100).toFixed(2),
+                                    //    //    (((sum0 + sum5 + sum1 + sum3 + sum4 + sum2) / total) * 100).toFixed(2)
+                                    //    //]
+                                    //}
+                                ]
+                            };
+                            myChart2.setOption(option);
+                        }
+                        //success: function (data) {
+                        //    //var batch1 = [0, 0, 0, 0, 0];
+                        //    //var batch2 = [0, 0, 0, 0, 0];
+                        //    //var batch3 = [0, 0, 0, 0, 0];
+                        //    var batch1_1 = 0; var batch1_2 = 0; var batch1_3 = 0; var batch1_4 = 0; var batch1_5 = 0;
+                        //    //var batch2_1 = 0; var batch2_2 = 0; var batch2_3 = 0; var batch2_4 = 0; var batch2_5 = 0;
+                        //    //var batch3_1 = 0; var batch3_2 = 0; var batch3_3 = 0; var batch3_4 = 0; var batch3_5 = 0;
+                        //    //瑕疵數量分批計算
+                        //    //batch1
+                        //    //for (var i = 0; i < data.length; i++) {
+                        //    //    if (data[i].label == 1 && data[i].batchNo == 1) {
+                        //    //        batch1_1 += 1
+                        //    //    }
+                        //    //    if (data[i].label == 2 && data[i].batchNo == 1) {
+                        //    //        batch1_2 += 1
+                        //    //    }
+                        //    //    if (data[i].label == 3 && data[i].batchNo == 1) {
+                        //    //        batch1_3 += 1
+                        //    //    }
+                        //    //    if (data[i].label == 4 && data[i].batchNo == 1) {
+                        //    //        batch1_4 += 1
+                        //    //    }
+                        //    //    if (data[i].label == 5 && data[i].batchNo == 1) {
+                        //    //        batch1_5 += 1
+                        //    //    }
+                        //    //};
+                        //    ////batch2
+                        //    //for (var i = 0; i < data.length; i++) {
+                        //    //    if (data[i].label == 1 && data[i].batchNo == 2) {
+                        //    //        batch2_1 += 1
+                        //    //    }
+                        //    //    if (data[i].label == 2 && data[i].batchNo == 2) {
+                        //    //        batch2_2 += 1
+                        //    //    }
+                        //    //    if (data[i].label == 3 && data[i].batchNo == 2) {
+                        //    //        batch2_3 += 1
+                        //    //    }
+                        //    //    if (data[i].label == 4 && data[i].batchNo == 2) {
+                        //    //        batch2_4 += 1
+                        //    //    }
+                        //    //    if (data[i].label == 5 && data[i].batchNo == 2) {
+                        //    //        batch2_5 += 1
+                        //    //    }
+                        //    //};
+                        //    ////batch3
+                        //    //for (var i = 0; i < data.length; i++) {
+                        //    //    if (data[i].label == 1 && data[i].batchNo == 3) {
+                        //    //        batch3_1 += 1
+                        //    //    }
+                        //    //    if (data[i].label == 2 && data[i].batchNo == 3) {
+                        //    //        batch3_2 += 1
+                        //    //    }
+                        //    //    if (data[i].label == 3 && data[i].batchNo == 3) {
+                        //    //        batch3_3 += 1
+                        //    //    }
+                        //    //    if (data[i].label == 4 && data[i].batchNo == 3) {
+                        //    //        batch3_4 += 1
+                        //    //    }
+                        //    //    if (data[i].label == 5 && data[i].batchNo == 3) {
+                        //    //        batch3_5 += 1
+                        //    //    }
+                        //    //};
+
+                        //    var option = {
+                        //        title: {
+                        //            //text: 'A廠商',
+                        //            x: 'left'
+                        //        },
+                        //        tooltip: {},
+                        //        legend: {
+                        //            data: ['Void', 'Horizontal', 'Vertical', 'Edge', 'Particle']
+                        //        },
+                        //        xAxis: {
+                        //            data: ['Normal', 'Particle', 'Void', 'Verticle', 'Edge', 'Horizontal'],
+                        //            name: '瑕疵分級',
+                        //            //splitLine: false,
+                        //            ////boundaryGap: false,
+                        //            //axisPointer: {
+                        //            //    type: 'shadow'
+                        //            //}
+                        //        },
+                        //        yAxis: {
+                        //            type: 'value',
+                        //            name: '比例',
+                        //            min: 0,
+                        //            max: 100,
+                        //            interval: 10,
+                        //            axisLabel: {
+                        //                formatter: '{value}'
+                        //            }
+                        //        },
+                        //         series: [{
+                        //            name: 'Void',
+                        //            type: 'bar',
+                        //            color: ['#ff7473'],
+                        //            data: [50]
+                        //        }, {
+                        //            name: 'Horizontal',
+                        //            type: 'bar',
+                        //            color: ['#ffc952'],
+                        //            data: [10]
+                        //        }, {
+                        //            name: 'Vertical',
+                        //            type: 'bar',
+                        //            color: ['#47b8e0'],
+                        //            data: [70]
+                        //        }, {
+                        //            name: 'Edge',
+                        //            type: 'bar',
+                        //            color: ['#34314c'],
+                        //            data: [30]
+                        //        }, {
+                        //            name: 'Particle',
+                        //            type: 'bar',
+                        //            color: ['#9baec8'],
+                        //            data: [90]
+                        //        }]
+
+                        //        // series: [{
+                        //        //    name: 'Void',
+                        //        //    type: 'bar',
+                        //        //    color: ['#ff7473'],
+                        //        //    data: [batch1_1]
+                        //        //}, {
+                        //        //    name: 'Horizontal',
+                        //        //    type: 'bar',
+                        //        //    color: ['#ffc952'],
+                        //        //    data: [batch1_2]
+                        //        //}, {
+                        //        //    name: 'Vertical',
+                        //        //    type: 'bar',
+                        //        //    color: ['#47b8e0'],
+                        //        //    data: [batch1_3]
+                        //        //}, {
+                        //        //    name: 'Edge',
+                        //        //    type: 'bar',
+                        //        //    color: ['#34314c'],
+                        //        //    data: [batch1_4]
+                        //        //}, {
+                        //        //    name: 'Particle',
+                        //        //    type: 'bar',
+                        //        //    color: ['#9baec8'],
+                        //        //    data: [batch1_5]
+                        //        //}]
+                        //    };
+                        //    myChart2.setOption(option);
+                        //}
+                    });
+                    }
+
+
+
+
+                    //jQuery plugin
+                    (function ($) {
+
+                        $.fn.uploader = function (options) {
+                            var settings = $.extend({
+                                MessageAreaText: "No files selected.",
+                                MessageAreaTextWithFiles: "File List:",
+                                DefaultErrorMessage: "Unable to open this file.",
+                                BadTypeErrorMessage: "We cannot accept this file type at this time.",
+                                acceptedFileTypes: ['pdf', 'jpg', 'gif', 'jpeg', 'bmp', 'tif', 'tiff', 'png', 'xps', 'doc', 'docx',
+                                    'fax', 'wmp', 'ico', 'txt', 'cs', 'rtf', 'xls', 'xlsx']
+                            }, options);
+
+                            var uploadId = 1;
+                            //update the messaging
+                            $('.file-uploader__message-area p').text(options.MessageAreaText || settings.MessageAreaText);
+
+                            //create and add the file list and the hidden input list
+                            var fileList = $('<ul class="file-list"></ul>');
+                            var hiddenInputs = $('<div class="hidden-inputs hidden"></div>');
+                            $('.file-uploader__message-area').after(fileList);
+                            $('.file-list').after(hiddenInputs);
+
+                            //when choosing a file, add the name to the list and copy the file input into the hidden inputs
+                            $('.file-chooser__input').on('change', function () {
+                                var file = $('.file-chooser__input').val();
+                                var fileName = (file.match(/([^\\\/]+)$/)[0]);
+
+                                //clear any error condition
+                                $('.file-chooser').removeClass('error');
+                                $('.error-message').remove();
+
+                                //validate the file
+                                var check = checkFile(fileName);
+                                if (check === "valid") {
+
+                                    // move the 'real' one to hidden list
+                                    $('.hidden-inputs').append($('.file-chooser__input'));
+
+                                    //insert a clone after the hiddens (copy the event handlers too)
+                                    $('.file-chooser').append($('.file-chooser__input').clone({ withDataAndEvents: true }));
+
+                                    //add the name and a remove button to the file-list
+                                    $('.file-list').append('<li style="display: none;"><span class="file-list__name">' + fileName + '</span><button class="removal-button" data-uploadid="' + uploadId + '"></button></li>');
+                                    $('.file-list').find("li:last").show(800);
+
+                                    //removal button handler
+                                    $('.removal-button').on('click', function (e) {
+                                        e.preventDefault();
+
+                                        //remove the corresponding hidden input
+                                        $('.hidden-inputs input[data-uploadid="' + $(this).data('uploadid') + '"]').remove();
+
+                                        //remove the name from file-list that corresponds to the button clicked
+                                        $(this).parent().hide("puff").delay(10).queue(function () { $(this).remove(); });
+
+                                        //if the list is now empty, change the text back
+                                        if ($('.file-list li').length === 0) {
+                                            $('.file-uploader__message-area').text(options.MessageAreaText || settings.MessageAreaText);
+                                        }
+                                    });
+
+                                    //so the event handler works on the new "real" one
+                                    $('.hidden-inputs .file-chooser__input').removeClass('file-chooser__input').attr('data-uploadId', uploadId);
+
+                                    //update the message area
+                                    $('.file-uploader__message-area').text(options.MessageAreaTextWithFiles || settings.MessageAreaTextWithFiles);
+
+                                    uploadId++;
+
+                                } else {
+                                    //indicate that the file is not ok
+                                    $('.file-chooser').addClass("error");
+                                    var errorText = options.DefaultErrorMessage || settings.DefaultErrorMessage;
+
+                                    if (check === "badFileName") {
+                                        errorText = options.BadTypeErrorMessage || settings.BadTypeErrorMessage;
+                                    }
+
+                                    $('.file-chooser__input').after('<p class="error-message">' + errorText + '</p>');
+                                }
+                            });
+
+                            var checkFile = function (fileName) {
+                                var accepted = "invalid",
+                                    acceptedFileTypes = this.acceptedFileTypes || settings.acceptedFileTypes,
+                                    regex;
+
+                                for (var i = 0; i < acceptedFileTypes.length; i++) {
+                                    regex = new RegExp("\\." + acceptedFileTypes[i] + "$", "i");
+
+                                    if (regex.test(fileName)) {
+                                        accepted = "valid";
+                                        break;
+                                    } else {
+                                        accepted = "badFileName";
+                                    }
+                                }
+
+                                return accepted;
+                            };
+                        };
+                    }(jQuery));
+
+                    //init
+                    $(document).ready(function () {
+                        $('.fileUploader').uploader({
+                            MessageAreaText: "No files selected. Please select a file."
+                        });
+                    });
+
+
+                </script>
+            </div>
+            </div>
+        </div>
+
+                @*<div class="wrapper">
+                    <div class="main-panel">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4" style="margin-left:100px; ">
+                                    <form method="post" class="file-uploader" action="" enctype="multipart/form-data">
+
+                                        <div class="file-uploader__message-area" style="background-color:darkred;">
+                                            <p style="font-family:'Comic Sans MS';font-size:25px;">Select a file to upload</p>
+                                        </div>
+                                        <div class="file-chooser" >
+                                            <input class="file-chooser__input" type="file" style="font-family:微軟正黑體;font-size:16px;" >
+                                        </div>
+                                        <input class="file-uploader__submit-button" type="submit" value="Upload" style="background-color:deeppink;font-family:'Comic Sans MS';font-size:25px;">
+
+                                    </form>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>*@
+
+
+

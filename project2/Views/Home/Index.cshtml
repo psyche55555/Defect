@@ -1,0 +1,127 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <!--套板下載網址https://bootsnipp.com/snippets/E10d8-->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="~/css/Home.css">
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top" id="banner">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#"><span>Monitoring  </span> System</a>
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Guest</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Help</a>
+                    </li>
+                    <!-- Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Set Up
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Link 1</a>
+                            <a class="dropdown-item" href="#">Link 2</a>
+                            <a class="dropdown-item" href="#">Link 3</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="banner">
+        <div class="container">
+            <div class="banner-text">
+                <div class="banner-heading">
+                    Have A Nice Day !
+                </div>
+                <div class="banner-sub-heading">
+                    Here goes the AIO monitoring system
+                </div>
+                <button type="button" class="btn btn-warning text-dark btn-banner" style="color:black">@Html.ActionLink("Log In", "IndexLogin")</button>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="laser-beam"></div>
+<div class="laser-beam red"></div>
+<div class="laser-beam purple"></div>
+<div class="laser-beam green"></div>*@
+
+
+    <script>
+
+        //浮動視窗
+        $("#login").click(function (e) {
+            $("#login_inputbox").dialog("open");
+            e.preventDefault();
+        });
+        var check_login = function () {
+            //check database
+            $(this).dialog("close");
+            $("#login_result").dialog("open");
+        }
+        $("#login_inputbox").dialog({
+            autoOpen: false,
+            modal: true,
+            title: "登入系統",
+            buttons: {
+                "取消": function () { $(this).dialog("close"); },
+                "確定": check_login
+            }
+        });
+        $("#login_result").dialog({
+            autoOpen: false,
+            modal: true,
+            title: "登入失敗",
+            buttons: {
+                確定: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+
+
+        //移動nav-bar會變
+        $(document).on("scroll", function () {
+            if
+            ($(document).scrollTop() > 70) {
+                $("#banner").addClass("shrink");
+            }
+            else {
+                $("#banner").removeClass("shrink");
+            }
+        });
+
+
+
+    </script>
+
+
+</body>
+</html>
