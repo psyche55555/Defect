@@ -330,13 +330,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Views\Home\Home1.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\IndexLogin.cshtml" />
     <Content Include="Views\Home\IndexAdmin.cshtml" />
-    <Content Include="Views\Home\MemberTable.cshtml" />
-    <Content Include="Views\Home\dashboard.cshtml" />
     <Content Include="Views\Card.cshtml" />
     <Content Include="Views\Edit.cshtml" />
     <Content Include="Views\Home\MemberTable1.cshtml" />
@@ -347,9 +344,7 @@
     <Content Include="Views\Home\SupplierA.cshtml" />
     <Content Include="Views\Home\SupplierB.cshtml" />
     <Content Include="Views\Home\SupplierC.cshtml" />
-    <Content Include="Views\Home\Echarts.cshtml" />
     <Content Include="Views\Home\Camera.cshtml" />
-    <Content Include="Views\Home\UploadFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
